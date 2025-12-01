@@ -1,0 +1,91 @@
+version: "3.9"
+
+services:
+  # ==========================
+  # Frontend - React
+  # ==========================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: trello_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - laravel
+      - node-server
+    networks:
+      - trello-net
+
+  # ==========================
+  # Node server (Socket + Gemini)
+  # ==========================
+  node-server:
+    build:
+      context: ./node-server
+      dockerfile: Dockerfile
+    container_name: trello_node_server
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    ports:
+      - "3000:3000"
+    networks:
+      - trello-net
+
+  # ==========================
+  # PHP Laravel API
+  # ==========================
+  laravel:
+    build:
+      context: ./laravel-api
+      dockerfile: Dockerfile
+    container_name: trello_laravel_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    environment:
+      DB_CONNECTION=mysql
+      DB_HOST=mysql
+      DB_PORT=3306
+      DB_DATABASE=trello
+      DB_USERNAME=trello_user
+      DB_PASSWORD=123456
+    networks:
+      - trello-net
+
+  # ==========================
+  # MySQL Database
+  # ==========================
+  mysql:
+    image: mysql:8
+    container_name: trello_mysql
+    env_file: mysql.env
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - trello-net
+
+  # ==========================
+  # phpMyAdmin (optional)
+  # ==========================
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: trello_phpmyadmin
+    ports:
+      - "9000:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: trello_user
+      PMA_PASSWORD: 123456
+    depends_on:
+      - mysql
+    networks:
+      - trello-net
+
+
+networks:
+  trello-net:
+    driver: bridge

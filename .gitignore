@@ -1,0 +1,73 @@
+
+*.env
+*.env.local
+.env.production
+.env.development
+.env.test
+.env.backup
+.secret
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# =================================
+trelloFE/node_modules/
+trelloFE/dist/
+trelloFE/.vite/
+trelloFE/npm-debug.log*
+trelloFE/yarn-debug.log*
+trelloFE/yarn-error.log*
+
+trello_socket_server/node_modules/
+trello_socket_server/npm-debug.log*
+trello_socket_server/.env
+trello_socket_server/logs/
+
+
+trelloPHP/vendor/
+trelloPHP/node_modules/
+trelloPHP/storage/logs/
+trelloPHP/storage/framework/cache/
+trelloPHP/storage/framework/views/
+trelloPHP/storage/framework/sessions/
+trelloPHP/.env
+trelloPHP/.env.backup
+trelloPHP/public/storage
+trelloPHP/phpunit.xml
+
+# Laravel sqlite
+trelloPHP/database/*.sqlite
+
+docker-data/
+mysql-data/
+*.pid
+*.seed
+*.sql
+
+# Ignore docker env file
+mysql.env
+
+# Compose override
+docker-compose.override.yml
+
+*.tmp
+*.temp
+*.cache
+.cache/
