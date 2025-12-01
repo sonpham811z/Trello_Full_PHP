@@ -60,15 +60,11 @@ export const registerAccountAPI = async(data) => {
 // API verify account
 
 export const employerVerifyAccountAPI = async(data) => {
-    const response = await authorizedAxios.put(`${API_ROOT}/server/users/verify_account`, data) // giao thức post
+    const response = await authorizedAxios.put(`${API_ROOT_DEV}/api/verify`, data) // giao thức post
     toast.success('Account verified successfully, Login to use Trello !')
     return response.data
 }
 
-// API refresh token
-export const refreshTokenAPI = async() => {
-    return await authorizedAxios.put(`${API_ROOT}/server/users/refresh_token`)
-}
 
 
 //API get list boards 
